@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>BKR Worldwide</title>
+
+<link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/update-notifier.css">
+<link rel="stylesheet" href="assets/css/skins.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<link rel="stylesheet"
+href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700;800&display=swap">
+
+</head>
+
+<body>
+
+<div class="fullscreen-root">
+
+<canvas class="game-canvas" id="gameCanvas"></canvas>
+
+<div id="hud-leaderboard" class="hud-leaderboard">
+<div class="lb-header">Leaderboard</div>
+<div class="lb-content"></div>
+</div>
+
+<div id="hud-bottom-left" class="hud-bottom-left">
+
+<div id="chat-container" class="chat-container">
+<div class="chat-resize-handle" id="chat-resize"></div>
+
+<div class="chat-messages" id="chat-messages"></div>
+
+</div>
+</div>
+
+<div id="hud-bottom-center" class="hud-bottom-center">
+
+<div id="stats-hud" class="stats-hud"></div>
+
+<div id="hud-server-timer" class="stat-badge server-timer-badge">
+<span>FFA EUROPE - 00h 00m 00s</span>
+</div>
+
+</div>
+
+</div>
+
+
+<div id="chat-input-container" class="chat-input-container">
+
+<div id="emoji-picker" class="emoji-picker"></div>
+
+<input
+type="text"
+id="chat-input"
+class="chat-input-field"
+name="chatmessage"
+maxlength="100"
+autocomplete="off"
+autocorrect="off"
+autocapitalize="off"
+spellcheck="false"
+/>
+
+<div id="emoji-toggle" class="emoji-toggle">
+<i class="fa-solid fa-face-smile"></i>
+</div>
+
+</div>
+
+
+<div id="minimap-container">
+<canvas id="minimap" width="0" height="0"></canvas>
+</div>
+
+
+<div id="pause-hud" class="pause-hud" style="display:none">
+<i class="fa-solid fa-pause"></i>
+PAUSED
+</div>
+
+
+<div id="countdown-overlay" class="countdown-overlay" style="display:none">
+
+<i class="fa-solid fa-clock countdown-icon"></i>
+
+<div class="countdown-text">SERVER RESTARTING IN</div>
+
+<div class="countdown-number">10</div>
+
+</div>
+
+
+
+<div class="lobby-overlay">
+
+<div class="lobby-menu">
+
+<div class="lobby-menu-bar">
+
+<button class="menu-btn btn-settings">
+<div class="btn-content">
+<i class="fa-solid fa-gear"></i>
+<span>Settings</span>
+</div>
+</button>
+
+<button class="menu-btn btn-play">
+<div class="btn-content">
+<i class="fa-solid fa-gamepad"></i>
+<span>Play</span>
+</div>
+</button>
+
+<button class="menu-btn btn-spectate">
+<div class="btn-content">
+<i class="fa-solid fa-eye"></i>
+<span>Spectate</span>
+</div>
+</button>
+
+<button class="menu-btn btn-reconnect-menu">
+<div class="btn-content">
+<i class="fa-solid fa-rotate-right"></i>
+<span>Reconnect</span>
+</div>
+</button>
+
+<button class="menu-btn btn-skins">
+<div class="btn-content">
+<i class="fa-solid fa-images"></i>
+<span>Skins</span>
+</div>
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div class="reconnect-overlay" id="reconnectOverlay">
+
+<div class="reconnect-box">
+
+<div class="reconnect-title">Disconnected</div>
+
+<div class="reconnect-message">Connection to the server was lost</div>
+
+<div class="reconnect-spinner"></div>
+
+<div class="reconnect-actions">
+
+<button class="reconnect-btn" id="btnReconnect">
+<i class="fa-solid fa-rotate-right"></i>
+Reconnect
+</button>
+
+<button class="reconnect-btn" id="btnMenu">
+<i class="fa-solid fa-house"></i>
+Return to Menu
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<script src="./wasmLoader.js"></script>
+
+<script src="./bundle.js"></script>
+
+</body>
+</html>
