@@ -12,9 +12,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700;800&display=swap">
+
+<script>
+  window.addEventListener("message", (event) => {
+    if (event.origin !== "https://delt.io") return;
+    if (!event.data) return;
+
+    if (event.data.type === "DELTA_CHAT") {
+      const box = document.getElementById("chatBox");
+      const row = document.createElement("div");
+      row.textContent = (event.data.name || "Unknown") + ": " + (event.data.text || "");
+      box.appendChild(row);
+    }
+  });
+</script>
+
 </head>
 
 <body>
+<div id="chatBox" style="padding:10px; font-family:Arial;"></div>
+
+
+    
     <div class="fullscreen-root">
         <canvas class="game-canvas" id="gameCanvas"></canvas>
 
