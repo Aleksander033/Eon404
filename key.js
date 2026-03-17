@@ -31,7 +31,7 @@
     }
 
     const script = document.createElement("script");
-    script.src = "build/senpaobs1.js"; // ndrshoje nese scripti kryesor ka emer tjeter
+    script.src = "bundle.js"; // ndrshoje nese scripti kryesor ka emer tjeter
     script.defer = true;
 
     script.onerror = function () {
