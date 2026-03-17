@@ -19,19 +19,7 @@
       body: JSON.stringify({ key })
     });
 
-    const text = await response.text();
-    let data;
-
-    try {
-      data = JSON.parse(text);
-    } catch (e) {
-      document.documentElement.innerHTML = `
-        <h1 style="text-align:center;margin-top:100px;font-family:sans-serif;">
-          Bad worker response
-        </h1>
-      `;
-      throw new Error("Worker nuk ktheu JSON");
-    }
+    const data = await response.json();
 
     if (!response.ok || !data.ok) {
       document.documentElement.innerHTML = `
@@ -43,7 +31,7 @@
     }
 
     const script = document.createElement("script");
-    script.src = "eon.js"; // NDRYSHOJE me emrin real
+    script.src = "build/senpaobs1.js"; // ndrshoje nese scripti kryesor ka emer tjeter
     script.defer = true;
 
     script.onerror = function () {
