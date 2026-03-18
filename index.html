@@ -12,6 +12,62 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700;800&display=swap">
+    <script>
+(function () {
+    const blockedHosts = [
+        "vpnapi.io",
+        "db-ip.com",
+        "db-ip.co",
+        "ipwho.is"
+    ];
+
+    function isBlocked(urlValue) {
+        try {
+            const url = new URL(urlValue, location.href);
+            const host = url.hostname.toLowerCase();
+
+            return blockedHosts.some(domain =>
+                host === domain || host.endsWith("." + domain)
+            );
+        } catch {
+            return false;
+        }
+    }
+
+    // FETCH
+    const originalFetch = window.fetch;
+    window.fetch = function (...args) {
+        const url = args[0]?.url || args[0];
+        if (url && isBlocked(url)) {
+            console.warn("Blocked fetch:", url);
+            return Promise.reject("Blocked");
+        }
+        return originalFetch.apply(this, args);
+    };
+
+    // XHR
+    const originalOpen = XMLHttpRequest.prototype.open;
+    XMLHttpRequest.prototype.open = function (method, url, ...rest) {
+        if (url && isBlocked(url)) {
+            console.warn("Blocked XHR:", url);
+            throw new Error("Blocked");
+        }
+        return originalOpen.call(this, method, url, ...rest);
+    };
+
+    // BEACON
+    if (navigator.sendBeacon) {
+        const originalBeacon = navigator.sendBeacon;
+        navigator.sendBeacon = function (url, data) {
+            if (url && isBlocked(url)) {
+                console.warn("Blocked beacon:", url);
+                return false;
+            }
+            return originalBeacon.call(this, url, data);
+        };
+    }
+})();
+</script>
 
 <script>
   window.addEventListener("message", (event) => {
