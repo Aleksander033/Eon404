@@ -1,0 +1,68 @@
+// ===== CHAT PATCH START =====
+(function () {
+    'use strict';
+
+    function getChatInput() {
+        return document.getElementById('chat-input') ||
+               document.querySelector('#chat-input') ||
+               document.querySelector('input[name="chatmessage"]');
+    }
+
+    function getNick() {
+        try {
+            return window.app?.unitManager?.activeUnit?.profile?.nick || '';
+        } catch {
+            return '';
+        }
+    }
+
+    function trySend(text) {
+        try {
+            const app = window.app;
+            if (!app) return false;
+
+            const rs = app.RootSocket;
+            if (!rs) return false;
+
+            const unit = app.unitManager?.activeUnit;
+            if (!unit) return false;
+
+            const msg = window.ac.create.message({
+                type: 1,
+                userID: rs.connectionID,
+                playerID: unit.playerID,
+                targetID: 0,
+                nick: getNick(),
+                text: text
+            });
+
+            rs.sendBuffer(msg);
+            return true;
+        } catch {
+            return false;
+        }
+    }
+
+    function bind() {
+        const input = getChatInput();
+        if (!input) return;
+
+        input.addEventListener('keydown', function(e) {
+            if (e.key !== 'Enter') return;
+
+            const text = input.value.trim();
+            if (!text) return;
+
+            if (trySend(text)) {
+                e.preventDefault();
+                input.value = '';
+            }
+        }, true);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bind);
+    } else {
+        bind();
+    }
+})();
