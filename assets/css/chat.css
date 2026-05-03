@@ -14,6 +14,13 @@
     min-height: 180px;
     max-width: 60vw;
     max-height: 60vh;
+    
+    /* Mbaj ato që ke dhe shto këto: */
+    position: relative; /* Ose absolute nëse dëshiron ta fiksosh në ekran */
+    top: -40px;         /* Ky numër negativ e ngjit kutinë lart */
+    
+   
+
 }
 
 @media (max-width: 768px) {
